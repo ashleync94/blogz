@@ -3,7 +3,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:launchcode@localhost:8888/build-a-blog'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog2:mike@localhost:8889/build-a-blog'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:buildablog@localhost:8889/build-a-blog'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 
@@ -47,8 +48,10 @@ def new_post():
         if not body_error and not title_error:
             new_entry = Blog(blog_title, blog_body)     
             db.session.add(new_entry)
-            db.session.commit()        
-            return redirect('/blog?id={}'.format(new_entry.id)) 
+            db.session.commit()      
+            blog_url = "/blog?id=" + str(new_entry.id)  
+            return redirect(blog_url)
+            # return redirect('/blog?id={}'.format(new_entry.id)) 
         else:
             return render_template('newpost.html', title='New Entry', title_error=title_error, body_error=body_error, 
                 blog_title=blog_title, blog_body=blog_body)

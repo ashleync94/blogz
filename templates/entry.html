@@ -2,10 +2,11 @@
 
 {% block content %}
     
-    <h1>Build a Blog</h1>
+    <h1>{{post.title}}</h1>
 
     {% if posts|length == 0 %}
-    <h3>No blog posts yet.</h3>
+    <!-- <h3>Succesfully added blog post!!!</h3> -->
+    <p>{{post.body}}</p>
     {% else %}
     
     {% for post in posts %}
