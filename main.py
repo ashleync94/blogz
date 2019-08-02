@@ -52,11 +52,12 @@ def index():
     every_user = User.query.distinct()
     return render_template('index.html', all_users=every_user)
 
-@app.route('/blog')
+@app.route('/blog', methods=['GET', 'POST'])
 def blog():
     
     post_id = request.args.get('id')
     singleUser_id = request.args.get('owner_id')
+
     if (post_id):
         new_post = Blog.query.get(post_id)
         return render_template('single_post.html', new_post=new_post)
@@ -66,12 +67,7 @@ def blog():
             return render_template('singleUser.html', body=singleUser_blog_posts)
         else:
             every_blog_posts = Blog.query.all()
-        
             return render_template('blog.html', body=every_blog_posts)
-
-
-
-
 
 @app.route('/newpost', methods=['GET', 'POST'])
 def newpost():
