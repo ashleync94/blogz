@@ -56,7 +56,7 @@ def index():
 def blog():
     
     post_id = request.args.get('id')
-    singleUser_id = request.args.get('owner_id')
+    singleUser_id = request.args.get('user')
 
     if (post_id):
         new_post = Blog.query.get(post_id)
@@ -93,6 +93,12 @@ def newpost():
                 return render_template('newpost.html', title_error=title_error, new_post_error=new_post_error)
         
     return render_template('newpost.html')
+
+@app.route('/allposts', methods=['GET', 'POST'])
+def allposts():
+    posts = Blog.query.filter_by().all()
+    return render_template('singleUser.html', body=posts)
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def add_user():
